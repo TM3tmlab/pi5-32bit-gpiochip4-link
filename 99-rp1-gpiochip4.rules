@@ -1,0 +1,9 @@
+# Raspberry Pi 5 + 32-bit Raspberry Pi OS (rpi-v8 kernel) workaround
+#
+# 40 ピンヘッダの GPIO (RP1, driver: pinctrl-rp1) に /dev/gpiochip4 という
+# シンボリックリンクを張り、gpiozero / lgpio が RP1 を開けるようにする。
+# Create /dev/gpiochip4 symlink pointing to the RP1 GPIO chip so that
+# gpiozero / lgpio can find the 40-pin header GPIO.
+#
+# https://github.com/gpiozero/gpiozero/issues/1166
+SUBSYSTEM=="gpio", KERNEL=="gpiochip*", DRIVERS=="pinctrl-rp1", SYMLINK+="gpiochip4"
